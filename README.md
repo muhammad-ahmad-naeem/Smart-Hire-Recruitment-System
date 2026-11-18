@@ -2,9 +2,9 @@
 
 A terminal application written in C++ that stores candidate profiles, matches them against job requirements, and ranks applicants with a weighted scoring mechanism. It is built entirely from hand-written data structures: **Dynamic Array, Hash Table, BST, AVL Tree and Heap**.
 
-> **Course:** [Course name], Data Structures and Algorithms
-> **Instructor:** [Instructor name]
-> **Team:** Mohammed Ahmed Naeem and [Partner name]
+> **Course:** [DSA], Data Structures and Algorithms
+> **Instructor:** [Mr. Sheroz Tariq]
+> **Team:** Mohammed Ahmed Naeem and Muhammad Rayyan
 > **Language:** C++ (only `<iostream>` is used; no STL containers, no `<string>`)
 
 ---
