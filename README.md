@@ -702,8 +702,8 @@ The project was built over seven days, with each day adding one layer on top of 
 
 | Member | Responsibility |
 |---|---|
-| Mohammed Ahmed Naeem | Helper functions, system layer (add, remove, scoring), menu and input handlers, documentation |
-| [Partner name] | Data models, dynamic array, both hash tables, BST, AVL tree, heap, merge sort, benchmarks |
+| Muhammed Ahmed Naeem | Helper functions, system layer (add, remove, scoring), menu and input handlers, documentation |
+| [Muhammad Rayyan] | Data models, dynamic array, both hash tables, BST, AVL tree, heap, merge sort, benchmarks |
 
 ### Reading list
 
