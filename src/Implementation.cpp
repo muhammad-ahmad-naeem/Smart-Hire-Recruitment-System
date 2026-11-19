@@ -76,3 +76,16 @@ int readInt(const char *p, int lo, int hi)
         cout << "Enter a value between " << lo << " and " << hi << endl;
     }
 }
+CandArray::CandArray(){cap=4;size=0;data=new Candidate[cap];}
+CandArray::~CandArray(){delete[]data;}
+int CandArray::add(const Candidate&c){
+    if(size==cap){
+        Candidate*t=new Candidate[cap*2];
+        for(int i=0;i<size;i++)t[i]=data[i];
+        delete[]data;
+        data=t;
+        cap*=2;
+    }
+    data[size]=c;
+    return size++;
+}
