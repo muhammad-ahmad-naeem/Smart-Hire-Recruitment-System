@@ -160,3 +160,26 @@ void SkillTable::del(const char*s,int idx){
         if(c->idx[i]==idx){c->idx[i]=c->idx[c->n-1];c->n--;return;}
     }
 }
+CandArray arr;
+IdTable ids;
+SkillTable sk;
+int activeCnt=0;
+bool addCand(Candidate c){
+    if(ids.find(c.id)!=-1)return false;
+    c.active=true;
+    int idx=arr.add(c);
+    ids.put(c.id,idx);
+    for(int i=0;i<c.sc;i++)sk.add(c.skills[i],idx);
+    activeCnt++;
+    return true;
+}
+bool removeCand(int id){
+    int idx=ids.find(id);
+    if(idx==-1)return false;
+    Candidate&c=arr.data[idx];
+    ids.remove(id);
+    for(int i=0;i<c.sc;i++)sk.del(c.skills[i],idx);
+    c.active=false;
+    activeCnt--;
+    return true;
+}
