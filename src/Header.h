@@ -21,5 +21,26 @@ public:
     ~CandArray();
     int add(const Candidate&c);
 };
+struct IdNode{int id;int idx;IdNode*next;};
+class IdTable{
+public:
+    IdNode*b[1009];
+    IdTable();
+    ~IdTable();
+    int h(int id);
+    void put(int id,int idx);
+    int find(int id);
+    bool remove(int id);
+};
+struct SkNode{char skill[20];int*idx;int n;int cap;SkNode*next;};
+class SkillTable{
+public:
+    SkNode*b[53];
+    SkillTable();
+    int h(const char*s);
+    SkNode*get(const char*s);
+    void add(const char*s,int idx);
+    void del(const char*s,int idx);
+};
 
 #endif
