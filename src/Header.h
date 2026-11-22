@@ -42,5 +42,21 @@ public:
     void add(const char*s,int idx);
     void del(const char*s,int idx);
 };
+struct TNode{int key;int idx;int h;TNode*l;TNode*r;};
+TNode*newNode(int k,int i);
+bool lessThan(int k1,int i1,int k2,int i2);
+TNode*minNode(TNode*t);
+int calcH(TNode*t);
+void freeTree(TNode*t);
+bool treeSearch(TNode*t,int k,int i);
+TNode*bstInsert(TNode*t,int k,int i);
+TNode*bstDelete(TNode*t,int k,int i);
+int ht(TNode*t);
+void upd(TNode*t);
+TNode*rotR(TNode*y);
+TNode*rotL(TNode*x);
+TNode*bal(TNode*t);
+TNode*avlInsert(TNode*t,int k,int i);
+TNode*avlDelete(TNode*t,int k,int i);
 
 #endif

@@ -183,3 +183,72 @@ bool removeCand(int id){
     activeCnt--;
     return true;
 }
+TNode*newNode(int k,int i){TNode*n=new TNode;n->key=k;n->idx=i;n->h=1;n->l=0;n->r=0;return n;}
+bool lessThan(int k1,int i1,int k2,int i2){return k1<k2||(k1==k2&&i1<i2);}
+TNode*minNode(TNode*t){while(t->l)t=t->l;return t;}
+int calcH(TNode*t){if(!t)return 0;int a=calcH(t->l);int b=calcH(t->r);return a>b?a+1:b+1;}
+void freeTree(TNode*t){if(!t)return;freeTree(t->l);freeTree(t->r);delete t;}
+bool treeSearch(TNode*t,int k,int i){
+    while(t){
+        cmpCount++;
+        if(k==t->key&&i==t->idx)return true;
+        t=lessThan(k,i,t->key,t->idx)?t->l:t->r;
+    }
+    return false;
+}
+TNode*bstInsert(TNode*t,int k,int i){
+    if(!t)return newNode(k,i);
+    if(lessThan(k,i,t->key,t->idx))t->l=bstInsert(t->l,k,i);
+    else t->r=bstInsert(t->r,k,i);
+    return t;
+}
+TNode*bstDelete(TNode*t,int k,int i){
+    if(!t)return 0;
+    if(k==t->key&&i==t->idx){
+        if(!t->l){TNode*r=t->r;delete t;return r;}
+        if(!t->r){TNode*l=t->l;delete t;return l;}
+        TNode*m=minNode(t->r);
+        t->key=m->key;t->idx=m->idx;
+        t->r=bstDelete(t->r,m->key,m->idx);
+    }
+    else if(lessThan(k,i,t->key,t->idx))t->l=bstDelete(t->l,k,i);
+    else t->r=bstDelete(t->r,k,i);
+    return t;
+}
+
+int ht(TNode*t){return t?t->h:0;}
+void upd(TNode*t){int a=ht(t->l);int b=ht(t->r);t->h=(a>b?a:b)+1;}
+TNode*rotR(TNode*y){TNode*x=y->l;y->l=x->r;x->r=y;upd(y);upd(x);return x;}
+TNode*rotL(TNode*x){TNode*y=x->r;x->r=y->l;y->l=x;upd(x);upd(y);return y;}
+TNode*bal(TNode*t){
+    upd(t);
+    int b=ht(t->l)-ht(t->r);
+    if(b>1){
+        if(ht(t->l->l)<ht(t->l->r))t->l=rotL(t->l);
+        return rotR(t);
+    }
+    if(b<-1){
+        if(ht(t->r->r)<ht(t->r->l))t->r=rotR(t->r);
+        return rotL(t);
+    }
+    return t;
+}
+TNode*avlInsert(TNode*t,int k,int i){
+    if(!t)return newNode(k,i);
+    if(lessThan(k,i,t->key,t->idx))t->l=avlInsert(t->l,k,i);
+    else t->r=avlInsert(t->r,k,i);
+    return bal(t);
+}
+TNode*avlDelete(TNode*t,int k,int i){
+    if(!t)return 0;
+    if(k==t->key&&i==t->idx){
+        if(!t->l){TNode*r=t->r;delete t;return r;}
+        if(!t->r){TNode*l=t->l;delete t;return l;}
+        TNode*m=minNode(t->r);
+        t->key=m->key;t->idx=m->idx;
+        t->r=avlDelete(t->r,m->key,m->idx);
+    }
+    else if(lessThan(k,i,t->key,t->idx))t->l=avlDelete(t->l,k,i);
+    else t->r=avlDelete(t->r,k,i);
+    return bal(t);
+}
