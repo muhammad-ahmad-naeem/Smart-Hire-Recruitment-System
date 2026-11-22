@@ -71,6 +71,26 @@ void listAll(){
     for(int i=0;i<arr.size;i++)if(arr.data[i].active)show(arr.data[i]);
     cout<<"Total candidates: "<<activeCnt<<endl;
 }
+void rangeQ(TNode*t,int lo,int hi,int&cnt){
+    if(!t)return;
+    if(t->key>=lo)rangeQ(t->l,lo,hi,cnt);
+    if(t->key>=lo&&t->key<=hi){show(arr.data[t->idx]);cnt++;}
+    if(t->key<=hi)rangeQ(t->r,lo,hi,cnt);
+}
+void expRange(){
+    int lo=readInt("Minimum experience: ",0,60);
+    int hi=readInt("Maximum experience: ",lo,60);
+    int cnt=0;
+    rangeQ(avl,lo,hi,cnt);
+    cout<<cnt<<" candidate(s) found"<<endl;
+}
+void salRange(){
+    int lo=readInt("Minimum salary (thousands): ",1,10000);
+    int hi=readInt("Maximum salary (thousands): ",lo,10000);
+    int cnt=0;
+    rangeQ(bst,lo,hi,cnt);
+    cout<<cnt<<" candidate(s) found"<<endl;
+}
 int main(){
     while(true){
         cout<<endl<<"===== SmartHire ====="<<endl;
@@ -80,6 +100,8 @@ int main(){
         cout<<"4. Search by ID (hash table)"<<endl;
         cout<<"5. Search by skill (hash table)"<<endl;
         cout<<"6. List all candidates (dynamic array)"<<endl;
+        cout<<"7. Search by experience range (AVL)"<<endl;
+        cout<<"8. Search by salary range (BST)"<<endl;
         cout<<"0. Exit"<<endl;
         int ch=readInt("Choice: ",0,13);
         if(ch==0)break;
@@ -89,6 +111,8 @@ int main(){
         else if(ch==4)searchId();
         else if(ch==5)searchSkill();
         else if(ch==6)listAll();
+        else if(ch==7)expRange();
+        else if(ch==8)salRange();
     }
     return 0;
 }

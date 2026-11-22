@@ -164,12 +164,16 @@ CandArray arr;
 IdTable ids;
 SkillTable sk;
 int activeCnt=0;
+TNode*bst=0;
+TNode*avl=0;
 bool addCand(Candidate c){
     if(ids.find(c.id)!=-1)return false;
     c.active=true;
     int idx=arr.add(c);
     ids.put(c.id,idx);
     for(int i=0;i<c.sc;i++)sk.add(c.skills[i],idx);
+    bst=bstInsert(bst,c.sal,idx);
+    avl=avlInsert(avl,c.exp,idx);
     activeCnt++;
     return true;
 }
@@ -179,6 +183,8 @@ bool removeCand(int id){
     Candidate&c=arr.data[idx];
     ids.remove(id);
     for(int i=0;i<c.sc;i++)sk.del(c.skills[i],idx);
+    bst=bstDelete(bst,c.sal,idx);
+    avl=avlDelete(avl,c.exp,idx);
     c.active=false;
     activeCnt--;
     return true;
