@@ -258,3 +258,42 @@ TNode*avlDelete(TNode*t,int k,int i){
     else t->r=avlDelete(t->r,k,i);
     return bal(t);
 }
+bool better(const HItem&a,const HItem&b){
+    cmpCount++;
+    if(a.s!=b.s)return a.s>b.s;
+    if(a.exp!=b.exp)return a.exp>b.exp;
+    return a.id<b.id;
+}
+Heap::Heap(HItem*a,int c){h=a;n=c;for(int i=n/2-1;i>=0;i--)down(i);}
+void Heap::down(int i){
+    while(true){
+        int l=2*i+1;
+        int r=l+1;
+        int m=i;
+        if(l<n&&better(h[l],h[m]))m=l;
+        if(r<n&&better(h[r],h[m]))m=r;
+        if(m==i)return;
+        HItem t=h[i];h[i]=h[m];h[m]=t;
+        i=m;
+    }
+}
+HItem Heap::pop(){
+    HItem top=h[0];
+    h[0]=h[--n];
+    down(0);
+    return top;
+}
+void msort(HItem*a,HItem*t,int lo,int hi){
+    if(hi-lo<2)return;
+    int m=(lo+hi)/2;
+    msort(a,t,lo,m);
+    msort(a,t,m,hi);
+    int i=lo,j=m,k=lo;
+    while(i<m&&j<hi){
+        if(better(a[j],a[i]))t[k++]=a[j++];
+        else t[k++]=a[i++];
+    }
+    while(i<m)t[k++]=a[i++];
+    while(j<hi)t[k++]=a[j++];
+    for(k=lo;k<hi;k++)a[k]=t[k];
+}

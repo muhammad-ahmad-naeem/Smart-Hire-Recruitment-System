@@ -58,5 +58,16 @@ TNode*rotL(TNode*x);
 TNode*bal(TNode*t);
 TNode*avlInsert(TNode*t,int k,int i);
 TNode*avlDelete(TNode*t,int k,int i);
+struct HItem{double s;int exp;int id;int idx;};
+bool better(const HItem&a,const HItem&b);
+class Heap{
+public:
+    HItem*h;
+    int n;
+    Heap(HItem*a,int c);
+    void down(int i);
+    HItem pop();
+};
+void msort(HItem*a,HItem*t,int lo,int hi);
 
 #endif
